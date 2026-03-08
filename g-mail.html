@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-mail</title>
+    
+</head>
+<body>
+    <button id="signIn">Sign In</button>
+    <button id="logIn">Log In</button>
+    <input id="emailInput" type="email" pattern=".+@gmail\.com" required placeholder="....@gmail.com"
+    if () {}>
+    <input id="passwordInput" required prompt="Enter your password" placeholder="Password">
+    <input id="nameInput" required prompt="Enter your name" placeholder="Name">
+    <input id="lastName" required prompt="Enter your last name" placeholder="Last Name">
+    <button onclick=" save();">sign in</button>
+
+    
+
+<script>
+    
+     function validateEmail() {
+    let emailInput = document.getElementById("emailInput");
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (emailPattern.test(emailInput.value)) {
+        alert("Valid email address.");
+        return true;
+    } else {
+        alert("Invalid email address.");
+        return false;
+    }
+}
+        function validatePassword() {
+    let passwordInput = document.getElementById("passwordInput");
+    if (passwordInput.value.length >= 8) {
+        alert("Password is valid.");
+        return true;
+    } else {
+        alert("Password must be at least 8 characters long.");
+        return false;
+    }}
+    function save() {
+        if (validateEmail(true) && validatePassword(true) && document.getElementById("nameInput").value && document.getElementById("lastName").value) {
+            alert("sign in successful!");
+            window.location.href = "fullweb.html";
+            
+        } else {
+            alert("Login failed. Please check your email and password.");
+        }
+    localStorage.setItem("email", emailInput.value);
+    localStorage.setItem("password", passwordInput.value);
+    localStorage.setItem("name", document.getElementById("nameInput").value);
+    localStorage.setItem("lastName", document.getElementById("lastName").value);
+    }
+  addEventListener("DOMContentLoaded",  function() {
+    let storedEmail = localStorage.getItem("email");
+    let storedPassword = localStorage.getItem("password");
+    let storedName = localStorage.getItem("name");
+    let storedLastName = localStorage.getItem("lastName");
+
+    if (storedEmail) {
+        document.getElementById("emailInput").value = storedEmail;
+        document.getElementById("nameInput").value = storedName;
+        document.getElementById("lastName").value = storedLastName;
+        document.getElementById("passwordInput").value = storedPassword;
+        window.location.href = "gmail.html";
+    
+    } });
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

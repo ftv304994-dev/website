@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>      
+<head>
+    <title>full webb Web</title>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.nav {
+  display: flex;             /* important: makes flexbox work */
+  align-items: center;       /* vertical centering */
+  justify-content: space-around; /* space links evenly */
+  background-color: #333;
+  height: 70px;
+  position: sticky;
+  top: -5px;
+  z-index: 1000;
+}
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+/* tablets */
+/* TABLETS */
+@media (max-width: 1000px) {
+
+  .nav {
+    display: flex;
+    flex-wrap: nowrap;      /* keep in one line */
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 5px 10px;
+  }
+
+  .nav a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .amazon {
+    font-size: 18px;
+  }
+
+  .bar {
+    width: 40%;
+  }
+
+  /* 3 products per row */
+  #products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .product-image {
+    height: 120px;
+    object-fit: cover;
+  }
+}
+
+
+/* PHONES */
+@media (max-width: 600px) {
+
+  .nav {
+        /* keep single line */
+    align-items: center;
+    flex-wrap:wrap;
+
+    height: auto;
+    padding: 5px;
+  }
+
+  .nav a {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .amazon {
+    font-size: 16px;
+  }
+
+  .bar {
+    width: 35%;
+  }
+
+  /* 2 products per row */
+  #products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-image {
+    height: 100px;
+    object-fit: cover;
+  }
+
+}
+.nav a {
+  display: inline-block;     /* optional, can also use flex item */
+  color: white;
+  text-decoration: none;
+  padding: 0 20px;           /* smaller horizontal padding */
+  font-size: 25px;
+}
+
+    .amazon {
+        font-size: 30px;
+        font-weight: bold;
+        background: linear-gradient(to right, #cd7f32 0%, #dfc112 50%, #FFD700 100%);
+
+  /* Make gradient only show in text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* For Firefox */
+  background-clip: text;
+  color: transparent;
+}
+    
+    .nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+ 
+    span {
+        font-size: 20px;
+        color: rgb(33, 197, 33);
+    }
+    #products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.3s;
+  animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+  0% {transform: translateY(30px); opacity: 0;}
+  100% {transform: translateY(0); opacity: 1;}}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-title {
+  margin: 10px 0;
+}
+
+.product-description {
+  font-size: 14px;
+  color: gray;
+}
+
+.product-price {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.add-btn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #444;
+}
+.list {
+  width:0;
+  height:0;
+  opacity:0;
+
+
+}
+
+.bar {
+  width: 300px;
+  padding: 10px;
+  display: block;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+ 
+</style><body>
+            <script src="products.js"></script>
+    <div class="nav">
+        <a href="fullweb.html" class="amazon">3AMAZON</a>
+        <a href="about-us.html">about us</a>
+        <a href="cart.html" id="cart" onclick="saveCart()">cart</a>
+        <a href="fullweb.html">order</a>
+        <a class="e"id="total">total</a>
+        <a class="e"id="reset" onclick="resetCart();updatePrice(0);updateCart() ">reset</a>
+        <a href="g-mail.html" onclick="window.location.href='g-mail.html'">login</a>
+    </div>
+    <input class="bar"type="text" id="searchInput" placeholder="Search...">
+    <button id="delete" class="delete" >delete</button>
+    <ul class="list" id="itemList">
+
+    </ul>
+    <div class="container" id="products">
+
+    </div>
+
+
+    <script>
+
+  const container = document.getElementById("products");
+  const delet = document.getElementById("delete");
+
+  products.forEach(product => {
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}" class="product-image">
+
+        <h3 class="product-title">${product.name}</h3>
+        
+
+        <p class="product-description">
+          ${product.description}
+        </p>
+
+        <p class="product-price">
+          $${product.price}
+        </p>
+
+        <button class="add-btn"
+          onclick="cartnum++;addItem('${product.name}', ${product.price});">
+          Add to Cart
+        </button>
+      </div>
+    `;
+  });
+  // SEARCH FUNCTION
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", function () {
+  const searchValue = this.value.toLowerCase();
+
+  const productCards = document.querySelectorAll(".product-card");
+
+  productCards.forEach(card => {
+    const title = card.querySelector(".product-title").textContent.toLowerCase();
+    const description = card.querySelector(".product-description").textContent.toLowerCase();
+    const price = card.querySelector(".product-price").textContent.toLowerCase();
+
+    if (
+      title.includes(searchValue) ||
+      description.includes(searchValue) )
+   {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+    delet.addEventListener("click", function() {
+      searchInput.value = "";
+      productCards.forEach(card => {
+        card.style.display = "block";
+      });
+      });
+    });
+    return searchValue;
+  });
+
+
+
+        let cartnum =localStorage.getItem("cartnum") || 0;
+        let totalnum =Number(localStorage.getItem("totalnum") || 0);
+        let total=document.getElementById('total')
+        let cart=document.getElementById('cart');
+        let items =JSON.parse(localStorage.getItem("cartItems")) || [];
+         let quant =Number(localStorage.getItem("quantity")) || 0;
+function addItem(name, price) {
+    // Check if item already exists
+    let existingItem = items.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;  // just increment quantity
+    } else {
+        items.push({
+            name: name,
+            price: Number(price),
+            quantity: 1
+        });
+    }
+
+    cartnum += 0;
+    totalnum += Number(price);
+
+    updateCart();
+    total.textContent = `total(${totalnum})`;
+    saveCart();
+}
+
+
+        function updateCart() {
+            cart.textContent = `cart(${cartnum})`;
+        }
+       function updatePrice(price) {
+        totalnum+=Number(price);
+        total.textContent = `total(${totalnum })`;
+       }
+
+                function saveCart() {
+    localStorage.setItem("cartnum", cartnum);
+    localStorage.setItem("totalnum", totalnum);
+    localStorage.setItem("quantity", quant);
+    localStorage.setItem("cartItems", JSON.stringify(items));
+}
+                
+function resetCart() {
+    cartnum = 0;
+    searchValue = 0;
+    totalnum = 0;
+    items = [];
+    updateCart();
+    total.textContent = `total(${totalnum})`;
+    saveCart();
+}
+window.onload = function() {
+    total.textContent = `total(${totalnum})`;
+    updateCart();
+};
+    </script></body>
+</html>

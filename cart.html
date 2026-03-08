@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>full webb Web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .w {
+        font-size: 40px;
+        font-weight: bold;
+        background: linear-gradient(to right, #cd7f32 0%, #cd7f32 50%, #8b4513 100%);
+        
+        -webkit-text-fill-color: transparent;
+        
+        color: transparent;
+        margin-left:0;
+        cursor: pointer;
+        margin-left: 20px;
+    }
+    .main {
+    background-color: #f2f2f2;
+    height: 100vh;
+}
+    .item-list {
+        list-style-type: none;
+        padding: 0;
+        margin-left: 1050px;
+        font-size: 16px;
+        
+    }
+    p { 
+        display:inline;
+        margin-left: 300px;
+        font-size: 25px;
+        align-items: bottom;
+
+
+    }
+    .nav{
+        display: flex;
+        height: 70px;
+        display:block;
+        background-color: #333;
+        color: white;
+        position: sticky;
+        top: 0;
+        align-items: bottom;
+        width:auto;}
+        .w {
+    font-size: 30px;
+    font-weight: bold;
+    background: linear-gradient(to right, #cd7f32 0%, #cd7f32 50%, #8b4513 100%);
+    background-clip:text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.main {
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: #333;
+    color: white;
+    padding: 0 20px;
+}
+
+/* CART INFO */
+.q{
+    font-size:20px;
+    margin-left:20px;
+}
+
+/* PRODUCTS GRID */
+.item-list {
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* PC */
+    gap: 20px;
+}
+
+/* PRODUCT BOX */
+.item-list li{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    font-size:18px;
+}
+
+/* TABLETS */
+@media (max-width:1000px){
+
+.item-list{
+grid-template-columns: repeat(3,1fr);
+}
+
+.w{
+font-size:24px;
+}
+
+}
+
+/* PHONES */
+@media (max-width:600px){
+
+.item-list{
+grid-template-columns: repeat(2,1fr);
+}
+
+.nav{
+height:60px;
+}
+
+.w{
+font-size:18px;
+margin-left:10px;
+}
+
+.q{
+font-size:14px;
+}
+
+}
+</style>
+</head>
+<body>
+    <div class="main">
+        <div class="nav">
+<p class="w" onclick="window.location.href='fullweb.html'">3AMAZON</p>
+<p class="w">Cart</p> 
+<p class="q">Total: $<span id="totalDisplay"></span></p>
+<p class="q">Items in cart: <span id="cartDisplay"></span></p>
+       </div>
+
+
+
+
+<ul class="item-list" id="itemsList"></ul>
+</div>
+
+<script>
+const cartnum = Number(localStorage.getItem("cartnum")) || 0;
+const totalnum = Number(localStorage.getItem("totalnum","quantity")) || 0;
+const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+document.getElementById("cartDisplay").textContent = cartnum;
+document.getElementById("totalDisplay").textContent = totalnum;
+
+// Display items in the cart
+const itemsList = document.getElementById("itemsList");
+cartItems.forEach(item => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${item.name} - $${item.price}- Quantity: ${item.quantity}`;
+    itemsList.appendChild(listItem);
+});
+
+    </script>
+</body>
+
+</html>

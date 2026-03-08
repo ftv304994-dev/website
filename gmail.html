@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-mail</title>
+
+</html>
+<body>
+    <div>
+        <p id="displayInfo"></p>
+        <button id="displayemail" onclick="window.location.href='fullweb.html'">View Full Profile</button>
+        <button id="logout" onclick="localStorage.clear();window.location.href='g-mail.html'">remove account</button>
+    </div>
+<script>
+    localStorage.getItem("email");
+    localStorage.getItem("password");
+    localStorage.getItem("name");
+    localStorage.getItem("lastName");
+    let displayInfo = document.getElementById("displayInfo");
+    let displayemail = document.getElementById("displayemail");
+    displayInfo.textContent = `${localStorage.getItem("name")} ${localStorage.getItem("lastName")},`;
+    displayemail.textContent = `${localStorage.getItem("email")}`;
+</script>
+
+</body>
+</html>
